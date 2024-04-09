@@ -1,0 +1,52 @@
+<!-- index.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dettaglio Offerta</title>
+    <style>
+        .compra { color: green; }
+        .vendi { color: red; }
+    </style>
+</head>
+<body class="{{ 'compra' if offerta.tipo_offerta == 'compra' else 'vendi' }}">
+    <h1>Dettaglio Offerta</h1>
+    <p> Prezzi in dollari calcolati con una quotazione di monero pari a {{prezzo_monero}} $/XMR da CoinGeko</p>
+    <p>Tipo di Offerta: {{ offerta.tipo_offerta }}</p>
+<p>Monero in Offerta: {{ offerta.quantita_monero }} XMR ({{ '%.2f' % (offerta.quantita_monero * prezzo_monero) }} $)</p>
+<p>Commissione  Monero 0.5%: {{ '%.12f' % (offerta.quantita_monero * 0.0005) }} XMR ({{ '%.2f' % (offerta.quantita_monero * 0.0005 * prezzo_monero) }} $)</p>
+<p>Riceverai: {{ '%.12f' % (offerta.quantita_monero - (offerta.quantita_monero * 0.0005)) }} XMR ({{ '%.2f' % ((offerta.quantita_monero - (offerta.quantita_monero * 0.0005)) * prezzo_monero) }} $)</p>
+
+    <p>Prezzo Monero Offerta: {{ offerta.prezzo_monero }} $/XMR</p>
+    <p>Quantità USDT Offerta: {{ offerta.quantita_usdt }}</p>
+    <p>Indirizzo Monero Offerta: {{ offerta.indirizzo_monero_offerta }}</p>
+    <p>Indirizzo USDT Offerta: {{ offerta.indirizzo_usdt_offerta }}</p>
+    <p>Indirizzo USDT Creatore: {{ offerta.indirizzo_BUY_USDT }}</p>
+    <p>Bilancio USDT Offerta: {{ offerta.bilancio_usdt }}</p>
+    <p>Bilancio XMR Offerta: {{ offerta.bilancio_xmr }}</p>
+    <p>Bilancio XMR Sbloccato: {{ offerta.bilancio_xmr_sbloccato }}</p>
+    <p>Indirizzo XMR SELL: {{ offerta.indirizzo_SELL_XMR }}</p>
+    <p>Indirizzo USDT SELL: {{ offerta.indirizzo_SELL_USDT }}</p>
+    <p>IS FILLED:{{offerta.is_FILLED}}</p>
+
+{% if offerta.tipo_offerta == 'compra' %}
+    <a href="{{ url_for('vendi_xmr_usdt', offerta_id=offerta.id) }}" class="btn btn-success">Vendi XMR</a>
+{% elif offerta.tipo_offerta == 'vendi' %}
+    <a href="{{ url_for('compra_xmr_usdt', offerta_id=offerta.id) }}" class="btn btn-danger">Compra XMR</a>
+{% endif %}
+
+
+        {% if current_user.id == offerta.utente_id %}
+            <form action="{{ url_for('elimina_offerta', offerta_id=offerta.id) }}" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questa offerta?');">
+                <button type="submit" class="btn btn-danger">Elimina Offerta</button>
+            </form>
+        {% endif %}
+    <br>
+    <br>
+    <a href="/crea_offerta">Torna alle offerte</a>
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compra XMR</title>
+</head>
+<body>
+    <h1>Dettagli Offerta</h1>
+    <p><strong>Offerta ID:</strong> {{ offerta.id }}</p>
+    <p><strong>Quantità XMR:</strong> {{ offerta.quantita }}</p>
+    <p><strong>Prezzo in USD:</strong> ${{ offerta.prezzo_monero }}</p>
+    <p><strong>Quantità USDT:</strong> {{ offerta.quantita_usdt }}</p>
+    <p><strong>Indirizzo USDT Offerta:</strong> {{ offerta.indirizzo_usdt_offerta }}</p>
+
+    <form action="{{ url_for('conferma_vendi_xmr_usdt', offerta_id=offerta.id) }}" method="post">
+        <button type="submit">Conferma Vendi</button>
+    </form>
+</body>
+</html>

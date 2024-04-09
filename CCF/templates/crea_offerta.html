@@ -1,0 +1,54 @@
+<!-- index.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crea Offerta</title>
+</head>
+<body>
+    <h1>Crea la tua offerta</h1>
+    <form action="/crea_offerta" method="post">
+        <select name="tipo_offerta">
+            <option value="vendi">Vendi</option>
+            <option value="compra">Compra</option>
+        </select>
+        <input type="float" name="quantita" placeholder="Quantità Monero XMR" required>
+        <input type="float" name="prezzo" placeholder="Prezzo in USDT" required>
+        <button type="submit">Calcola</button>
+    </form>
+
+    <hr>
+<h1>Le tue offerte</h1>
+<ul>
+    {% for offerta in offerte|reverse %}
+        <li class="{{ 'compra' if offerta.tipo_offerta == 'compra' else 'vendi' }}">
+            {{ offerta.tipo_offerta | capitalize }} - Quantità Monero: {{ offerta.quantita_monero }},
+            Prezzo per unità: {{ offerta.prezzo_monero }} USDT, Totale USDT: {{ offerta.quantita_usdt }}
+            - <a href="/offerta/{{ offerta.id }}">Visualizza Offerta</a>
+        </li>
+    {% else %}
+        <p>Nessuna offerta trovata.</p>
+    {% endfor %}
+</ul>
+
+<style>
+    .compra { color: green; }
+    .vendi { color: red; }
+</style>
+    </ul>
+
+<p></p>
+<p></p>
+<form action="/aggiorna_offerte" method="get">
+    <button type="submit">Aggiorna Offerte</button>
+</form>
+
+
+ <a href="/portafoglio_USDT">Portafoglio USDT</a>
+</body>
+
+</html>
+
+{% endblock %}

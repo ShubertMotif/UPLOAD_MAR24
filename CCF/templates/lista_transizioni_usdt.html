@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista Transazioni</title>
+</head>
+<body>
+    <h1>Lista Transazioni</h1>
+    <ul>
+        {% for transazione in transaction_list %}
+            <li>{{ transazione }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

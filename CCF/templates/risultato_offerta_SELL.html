@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Risultato Offerta</title>
+</head>
+<body>
+    <h1>Conferma offerta</h1>
+    <p>Stai per vendere {{quantita}} XMR al prezzo di {{prezzo}}USDT/XMR </p>
+    <p>Otterrai {{ usdt_offerta }} USDT dalla vendita</p>
+
+<form action="/pubblica_offerta" method="post">
+    <input type="hidden" name="tipo_offerta" value="{{ tipo_offerta }}">
+    <input type="hidden" name="quantita" value="{{ quantita }}">
+    <input type="hidden" name="prezzo" value="{{ prezzo }}">
+    <input type="hidden" name="usdt_offerta" value="{{ usdt_offerta }}">
+    <button type="submit">Conferma Offerta</button>
+</form>
+
+    <a href="/crea_offerta">Crea un'altra offerta</a>
+</body>
+</html>

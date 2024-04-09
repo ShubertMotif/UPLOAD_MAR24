@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conferma Chiusura Offerta</title>
+</head>
+<body>
+    <h1>Conferma Chiusura Offerta</h1>
+    <p><strong>ID Offerta:</strong> {{ offerta.id }}</p>
+    <p><strong>Tipo Offerta:</strong> {{ offerta.tipo_offerta }}</p>
+    {% if offerta.tipo_offerta == 'compra' %}
+        <p><strong>ID Transazione USDT:</strong> {{ offerta.transazione_usdt_id }}</p>
+    {% else %}
+        <p><strong>ID Transazione XMR:</strong> {{ offerta.transazione_xmr_id }}</p>
+    {% endif %}
+    <p>Offerta chiusa con successo!</p>
+</body>
+</html>

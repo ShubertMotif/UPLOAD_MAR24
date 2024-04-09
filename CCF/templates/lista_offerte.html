@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista Offerte</title>
+</head>
+<body>
+    <h1>Le tue offerte</h1>
+    <ul>
+        {% for offerta in offerte %}
+            <li>{{ offerta.tipo_offerta | capitalize }} - Quantità Monero: {{ offerta.quantita_monero }}, Prezzo per unità: {{ offerta.prezzo_monero }} USDT, Totale USDT: {{ offerta.quantita_usdt }}</li>
+        {% else %}
+            <p>Nessuna offerta trovata.</p>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>

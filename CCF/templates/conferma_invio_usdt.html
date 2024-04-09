@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Conferma Invio USDT</title>
+</head>
+<body>
+    <h1>Conferma Invio USDT</h1>
+    <p>Stai per inviare <strong>{{ quantita }}</strong> USDT a <strong>{{ indirizzo_destinatario }}</strong>.</p>
+    <form action="/conferma_invio_usdt" method="post">
+        <input type="hidden" name="indirizzo_destinatario" value="{{ indirizzo_destinatario }}">
+        <input type="hidden" name="quantita" value="{{ quantita }}">
+        <button type="submit">Conferma Invio</button>
+    </form>
+</body>
+</html>

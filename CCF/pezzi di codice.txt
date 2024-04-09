@@ -1,0 +1,97 @@
+
+#################################OFFERTE######################
+
+
+@app.route('/crea_offerta', methods=['GET', 'POST'])
+def crea_offerta():
+    if request.method == 'POST':
+        tipo_offerta = request.form.get('tipo_offerta')
+        quantita = float(request.form.get('quantita'))
+        prezzo = float(request.form.get('prezzo'))
+
+        if tipo_offerta == 'vendi':
+            usdt_ricevuti = quantita * prezzo
+            return render_template('risultato_offerta_SELL.html', usdt_ricevuti=usdt_ricevuti)
+        else:
+            # Logica per il caso "compra"
+            pass
+    return render_template('crea_offerta.html')
+
+
+
+contratto <Contract  TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t>
+indirizzo mittente TCLRaGAqaUYiGZrn7mBtBvq2Z3RUxZKzCn
+indirizzo destinatario TGfHCJb3XCPHsdzVDFZu9mApCV9461w1Nx
+
+
+479eb2475bdf649d9c2576565218bc76601c7ac02f286f971563349fa5873379
+479eb2475bdf649d9c2576565218bc76601c7ac02f286f971563349fa5873379
+
+
+
+        if bilancio >= (offerta.quantita_usdt):
+            print('Bilancio', bilancio, 'Copre Offerta', offerta.indirizzo_usdt_offerta)
+
+            private_key = PrivateKey(bytes.fromhex(offerta.private_key_USDT_hex))
+            print('private key', private_key)
+
+            quantita_in_sun = int(float(offerta.quantita_usdt) * 10 ** 6)
+            contract_address = "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t"
+
+###############################GAS FEE##################
+            url = "https://nile.trongrid.io/wallet/triggerconstantcontract"
+            headers = {'Content-Type': 'application/json'}
+            data = {
+                "owner_address": str(offerta.indirizzo_usdt_offerta),
+                "contract_address": contract_address,
+                "function_selector": "transfer(address,uint256)",
+                "parameter": "0000000000000000000000002ce5de57373427f799cc0a3dd03b841322514a8c00000000000000000000000000000000000000000000000000038d7ea4c68000",
+                "visible": True
+            }
+
+            response = requests.post(url, headers=headers, data=json.dumps(data))
+            result_fee = response.json()
+
+            # Assumendo che la risposta includa 'energy_used'
+            print('RESULT FEE',result_fee)
+            print("Energy used:", result_fee.get("energy_used"))
+            time.sleep(10)
+
+            print("Preparazione della transazione...")
+            contract = client.get_contract(contract_address)
+            print('contratto', contract)
+            print('indirizzo mittente', offerta.indirizzo_usdt_offerta)
+            indirizzo_destinatario = offerta.indirizzo_BUY_USDT  # indirizzo 0000 crea offerta
+            print('indirizzo destinatario', indirizzo_destinatario)
+            print('quantità in sun', quantita_in_sun)
+            txn = (
+                client.trx.transfer(offerta.indirizzo_usdt_offerta, indirizzo_destinatario, offerta.quantita_usdt)
+                .memo("TEST MEMO")
+                .build()
+                .inspect()
+                .sign(private_key)
+
+            )
+            print("Invio della transazione...")
+            print('TXN', txn)
+            result = txn
+            print("Risultato della transazione:", result)
+
+            # Correzione: usa txn.txid per ottenere l'ID della transazione direttamente dall'oggetto Transaction
+            print('TXN ID', txn.txid)
+
+            transaction_info = client.get_transaction(txn_id=txn.txid)
+            contract_info = transaction_info['raw_data']['contract'][0]['parameter']['value']
+            owner_address = contract_info['owner_address']
+            to_address = contract_info['to_address']
+            amount = contract_info['amount'] / 1_000_000
+
+            # Salvataggio in una lista
+            transaction_details = ['FROM', owner_address, 'TO', to_address, 'USDT', amount]
+            print('transaction detail', transaction_details)
+
+        else:
+            print('Bilancio', offerta.indirizzo_usdt_offerta, '=', bilancio, 'insufficiente')
+
+    flash('Offerte aggiornate','success')
+    return redirect(url_for('crea_offerta'))
