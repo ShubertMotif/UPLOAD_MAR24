@@ -1,0 +1,8 @@
+{
+	"name":"BTC USDT 100 ore 1h",
+	"simbolo":"BTCUSDT",
+	"ore":100,
+	"intervallo":"1h",
+	"iterazioni":5000,
+	"learning_rate":0.58
+}
