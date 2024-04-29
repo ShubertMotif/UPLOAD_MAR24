@@ -33,7 +33,7 @@ print('UTC+2 Adesso', time.ctime(utc1))
 
 ###############
 #CARICO PARAMETRI
-direct='/home/linuz/RN_BTC_1H/'
+direct=str('/home/linuz/PycharmProjects/UPLOAD_MAR24/RN_BTC_1H/')
 f=open(direct+'config.json')
 impostazioni=json.load(f)
 print('LEGGO INFO NEL JSON')

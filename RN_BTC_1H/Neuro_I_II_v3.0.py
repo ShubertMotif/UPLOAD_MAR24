@@ -11,7 +11,8 @@ import os
 #CARICO PARAMETRI
 #LA DIRECTORY E' DA IMPOSTARE A MANO!!!!!!!!!!
 full_path = os.path.realpath(__file__)
-direct=str(os.path.dirname(full_path)+'/')
+direct=str('/home/linuz/PycharmProjects/UPLOAD_MAR24/RN_BTC_1H/')
+
 f=open(direct+'config.json')
 impostazioni=json.load(f)
 print('LEGGO INFO NEL JSON')
@@ -34,13 +35,17 @@ import BGC
 import numpy as np
 import math as mt
 import random as rd
+import matplotlib
+matplotlib.use('TkAgg')  # Usa il backend TkAgg per Matplotlib
+
+# Ora puoi importare gli altri moduli Matplotlib
 import matplotlib.pyplot as plt
+
 import seaborn as sns
 import time
 import zipfile
 import os
 from scipy.signal import argrelextrema
-
 ############
 
 input('Procedo?')
@@ -181,7 +186,7 @@ plt.plot(leX_min,leY_min,'X',label='minimi')
 plt.plot(leX_max,leY_max,'X',label='massimi')
 #plt.plot(range(1,101),outsig)
 plt.legend()
-plt.show(block=False)
+plt.draw()
 input('Procedo?')
 
 #####################################################################
